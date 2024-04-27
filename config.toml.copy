@@ -1,0 +1,83 @@
+# 设定工作路径
+# This is a TOML document
+
+# Don't change
+title = "ConfigForQuarkDSE"
+# 修改你的工作路径
+# workdir = "/Users/kjy/Desktop/program/julia/DSE_BSE"
+
+[owner]
+name = "康嘉胤"
+place = "NKU"
+
+# [moudle]
+# Gaussquad = 1 # 个人用高斯积分
+# JLD2 = 1 # 文件读写
+# Plots = 1 # 画图
+# Dierckx = 1 # 插值
+# BenchmarkTools = 1 # 测试函数
+# LinearAlgebra = 1 # 线性代数
+# FastGaussQuadrature = 1 
+# ChebyshevFun = 1
+
+[data]
+mt = 0.5
+tau = 6.38905609893065  # \tau = \euler{}^2 - 1 
+lambda = 0.234
+omega = 0.5 # xing =0.7   # myold 0.5 
+dd = 1.317 # D \omega=(0.82)^3 xing (1.1)^3 # old dd =1.102 
+Nf = 4
+rm = 0.48 # rm = 12/(33 - 2*Nf)
+
+# 重整化参数初值
+z2 = 0.991882
+z4 = 0.800300
+
+[quarkDSE]
+quarkintstep = 256
+repoint = 19.0
+# m1^2=m^2+2*100  ->   m1=14.142136081936137   
+# m2^2=m^2+100    ->   m2=10.000000647999979
+# m1^2=m^2+2*10^5  ->   m1=447.21359551444766   
+# m2^2=m^2+100^5   ->   m2=316.2277660373295
+quarkmass = 0.004
+
+[mesonBSE]
+kstep = 256
+zstep = 16
+Pstep = 4
+massRange = [0.13, 0.14]
+logofcutoff = 4
+# meson mode document
+# mesonmode = 1 means pseudoscalar meson·
+# mesonmode = 2 means scalar meson
+# mesonmode = 3 means vector meson
+# mesonmode = 4 means axial-vector meson
+mesonmode = 1
+
+# [subterm]
+# calculate = 1
+# # bigm = 1
+# # Pstep = 1
+# # masscutoff = 7
+
+[readsetting]
+readmode = 1
+kstep = 64
+zstep = 8
+Pstep = 1
+# massRange = [0.14, 0.16]
+# 需要取平方
+logofcutoff = 4
+quarkintstep = 256
+repoint = 19.0
+quarkmass = 0.00245
+# epsilon = -1.0
+# epsilon = -0.3333333333333333
+# epsilon = -0.6666666666666666
+epsilon = 0.2
+omega2 = 1.1
+# epsilon = 0.3333333333333333
+# epsilon = 0.6666666666666666
+# epsilon = 1.0
+# epsilon = 1.0
