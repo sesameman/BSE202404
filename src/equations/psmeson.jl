@@ -2,11 +2,11 @@ mkpath("data/pseudo_BSE/meson-$now_time/")
 print("创建文件--",joinpath(workdir,"data/pseudo_BSE/meson-$now_time/"),"\n")
 
 # cp(joinpath(workdir,"config.toml"),joinpath(workdir,"data/pseudo_BSE/meson-//log-$now_time.toml"))
-open(joinpath(workdir,"data/pseudo_BSE/meson-//log-$now_time.toml"), "w") do file
+open(joinpath(workdir,"data/pseudo_BSE/meson-$now_time/log-$now_time.toml"), "w") do file
     TOML.print(file, dataset)
 end
 
-CSV.write(joinpath(workdir,"data/pseudo_BSE/meson-//plist.CSV"),DataFrame(p2=plist))
+CSV.write(joinpath(workdir,"data/pseudo_BSE/meson-$now_time/plist.CSV"),DataFrame(p2=plist))
 
 @showprogress for indexforp2=1:Pstep
     timetest1=time()

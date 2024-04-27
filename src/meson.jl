@@ -26,9 +26,9 @@ now_time = Dates.format(Dates.now(), "YYYY-mm-dd-HH:MM")
 ##这里使用程慕阳的程序,请更改原文件##
 ################################
 
-quarkrepoint = dataset["quarkDSE"]["repoint"]
-quarkintstep = dataset["quarkDSE"]["quarkintstep"]
-quarkm = dataset["quarkDSE"]["quarkmass"]
+# quarkrepoint = dataset["quarkDSE"]["repoint"]
+# quarkintstep = dataset["quarkDSE"]["quarkintstep"]
+# quarkm = dataset["quarkDSE"]["quarkmass"]
 
 # data
 logofcutoff = dataset["mesonBSE"]["logofcutoff"]
@@ -39,6 +39,7 @@ mt = dataset["data"]["mt"]
 dd = dataset["data"]["dd"]
 Nf = dataset["data"]["Nf"]
 rm = dataset["data"]["rm"]
+Parameters_Xi = dataset["data"]["Parameters_Xi"]
 z2 = dataset["data"]["z2"]
 z4 = dataset["data"]["z4"]
 cutup = 10. ^logofcutoff
@@ -47,15 +48,23 @@ cutdown = 10. ^(-4)
 kstep = dataset["mesonBSE"]["kstep"]
 zstep = dataset["mesonBSE"]["zstep"]
 Pstep = dataset["mesonBSE"]["Pstep"]
+zintstep = dataset["mesonBSE"]["zintstep"]
 massRange = dataset["mesonBSE"]["massRange"]
 dim = kstep * zstep
 # 取点方式
-plist = [massRange[1] + (massRange[2]-massRange[1])/(Pstep-1) * t for t in 0:(Pstep-1)]
+if Pstep == 1
+    plist = [massRange[1]]
+else
+    plist = [massRange[1] + (massRange[2]-massRange[1])/(Pstep-1) * t for t in 0:(Pstep-1)]
+end
 
-meshk,weightk = gausslegendremesh(cutdown,cutup,kstep,2);
-meshz,weightz = gausschebyshev(zstep,2);
+# meshk,weightk = complex.(gausslegendremesh(cutdown,cutup,kstep,2));
+# meshz,weightz = complex.(gausschebyshev(zstep,2));
+meshk,weightk = gausslegendremesh(cutdown,cutup,kstep,2)
+meshz,weightz = gausschebyshev(zstep,2)
 
 D(t) = 8 * pi^2 * (dd * exp(-t/(ω^2)) / ω^4 + rm * ( (-expm1(-t/(2 * mt)^2))/t )/ log(τ+(1+t/Λ^2)^2))
+D_infrared = D
 # D(t::Float64)=8*pi^2*(rm/log(τ+(1+t/Λ^2)^2))*(1/(t+(ω^4/(t+ω^2))))*(1+dd*ω^2/(t+(ω^4/(t+ω^2)))) # QC-2-04-12
 
 
@@ -83,7 +92,7 @@ function BB(x)
 end
 # AA(x) = AA1(x)
 # BB(x) = BB1(x)
-branchfunction(x::Float64)=(x*AA(x)^2+BB(x)^2)
+branchfunction(x)=(x*AA(x)^2+BB(x)^2)
 
 # 处理实数输入
 function safe_sqrt(x::Real)
@@ -94,6 +103,7 @@ function safe_sqrt(x::Real)
     end
 end
 
+computeIndex(a::Int, b::Int) = (a - 1) * zstep + b  
 # 处理复数输入
 safe_sqrt(x::Complex) = sqrt(x)
 

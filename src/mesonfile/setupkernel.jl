@@ -1,13 +1,45 @@
 # 初始化变量
+# if dataset["mesonBSE"]["mesonmode"] == 1
+#     kernel=Array{ComplexF64}(undef,kstep , zstep, kstep, zstep, 4, 4)
+# elseif dataset["mesonBSE"]["mesonmode"] == 2
+#     kernel=Array{ComplexF64}(undef,kstep , zstep, kstep, zstep, 4, 4)
+# elseif dataset["mesonBSE"]["mesonmode"] == 3
+#     kernel=Array{ComplexF64}(undef,kstep , zstep, kstep, zstep, 8, 8)
+# elseif dataset["mesonBSE"]["mesonmode"] == 4
+#     kernel=Array{ComplexF64}(undef,kstep , zstep, kstep, zstep, 8, 8)
+# end
+
+
 if dataset["mesonBSE"]["mesonmode"] == 1
-    kernel=Array{ComplexF64}(undef,kstep , zstep, kstep, zstep, 4, 4)
+    kernel = Array{Array{ComplexF64,2},2}(undef, 4, 4)
+    for i in 1:4
+        for j in 1:4
+            kernel[i, j] = fill(Complex(0), dim, dim)
+        end
+    end
 elseif dataset["mesonBSE"]["mesonmode"] == 2
-    kernel=Array{ComplexF64}(undef,kstep , zstep, kstep, zstep, 4, 4)
+    kernel = Array{Array{ComplexF64,2},2}(undef, 4, 4)
+    for i in 1:4
+        for j in 1:4
+            kernel[i, j] = fill(Complex(0), dim, dim)
+        end
+    end
 elseif dataset["mesonBSE"]["mesonmode"] == 3
-    kernel=Array{ComplexF64}(undef,kstep , zstep, kstep, zstep, 8, 8)
+    kernel = Array{Array{ComplexF64,2},2}(undef, 8, 8)
+    for i in 1:8
+        for j in 1:8
+            kernel[i, j] = fill(Complex(0), dim, dim)
+        end
+    end
 elseif dataset["mesonBSE"]["mesonmode"] == 4
-    kernel=Array{ComplexF64}(undef,kstep , zstep, kstep, zstep, 8, 8)
+    kernel = Array{Array{ComplexF64,2},2}(undef, 8, 8)
+    for i in 1:8
+        for j in 1:8
+            kernel[i, j] = fill(Complex(0), dim, dim)
+        end
+    end
 end
+
 # A1=Array{Float64}(undef,kstep,zstep);
 # B1=Array{Float64}(undef,kstep,zstep);
 # A2=Array{Float64}(undef,kstep,zstep);
