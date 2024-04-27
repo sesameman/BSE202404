@@ -12,6 +12,8 @@ CSV.write(joinpath(workdir,"data/pseudo_BSE/meson-$now_time/plist.CSV"),DataFram
     timetest1=time()
     global P2
     P2 = -plist[indexforp2]^2
+    local psave
+    psave = plist[indexforp2]
     # 分配点与权重
     include(joinpath(workdir,"src/mesonfile/setupkernel.jl"))
     # 计算kernel
@@ -19,6 +21,11 @@ CSV.write(joinpath(workdir,"data/pseudo_BSE/meson-$now_time/plist.CSV"),DataFram
     # 求解函数
     include(joinpath(workdir,"src/mesonfile/solve_kernel.jl"))
     # 保存文件
-    # jldsave("data/pseudo_BSE/meson-$kstep-$zstep-$Pstep-$quarkm-$logofcutoff-$quarkintstep-$quarkrepoint-$omega2-$epsilon//P&F1-4_$indexforp2-$Pstep.jld2";P2, F1, F2, F3, F4)
+    savefilepath = joinpath(workdir,"data/pseudo_BSE/meson-$now_time/")
+    jldsave(joinpath(savefilepath,"p=$psave.jld2");P2, eigvals, eigvecs)
+    open(joinpath(savefilepath,"output.txt"), "a") do file
+        println(file,"now Pmass = ",psave)
+        println(file,"eigs = ",eigvals)
+    end
     # print("mesonBSA--$P2 for $indexforp2/$Pstep done, takes",round((time()-timetest1)*100)/100,"s \n")
 end

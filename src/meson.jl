@@ -92,7 +92,7 @@ function BB(x)
 end
 # AA(x) = AA1(x)
 # BB(x) = BB1(x)
-branchfunction(x)=(x*AA(x)^2+BB(x)^2)
+# branchfunction(x)=(x*AA(x)^2+BB(x)^2)
 
 # 处理实数输入
 function safe_sqrt(x::Real)
