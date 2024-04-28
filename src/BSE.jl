@@ -13,7 +13,7 @@ using CSV
 using Arpack
 using Dates
 
-dataset = TOML.parsefile("config.toml")
+
 # delete!(dataset,"owner")
 # delete!(dataset,"title")
 delete!(dataset,"readsetting")
@@ -108,18 +108,18 @@ computeIndex(a::Int, b::Int) = (a - 1) * zstep + b
 safe_sqrt(x::Complex) = sqrt(x)
 
 print("参数导入完毕,开始计算mesonBSA\n")
-if dataset["mesonBSE"]["mesonmode"] == 1
+if dataset["calcType"]["mesonmode"] == 1
     println("将计算psmeson")
-    include(joinpath(pwd(),"src/equations/psmeson.jl"))
-elseif dataset["mesonBSE"]["mesonmode"] == 2
+    include(joinpath(workdir,"src/equations/psmeson.jl"))
+elseif dataset["calcType"]["mesonmode"] == 2
     println("将计算scalarmeson")
-    include(joinpath(pwd(),"src/equations/scalarmeson.jl"))
-elseif dataset["mesonBSE"]["mesonmode"] == 3
+    include(joinpath(workdir,"src/equations/scalarmeson.jl"))
+elseif dataset["calcType"]["mesonmode"] == 3
     println("将计算vectormeson")
-    include(joinpath(pwd(),"src/equations/vectormeson.jl"))
-elseif dataset["mesonBSE"]["mesonmode"] == 4
+    include(joinpath(workdir,"src/equations/vectormeson.jl"))
+elseif dataset["calcType"]["mesonmode"] == 4
     println("将计算avmeson")
-    include(joinpath(pwd(),"src/equations/avmeson.jl"))
+    include(joinpath(workdir,"src/equations/avmeson.jl"))
 end # if for mode
 
 # end # module
