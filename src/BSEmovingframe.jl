@@ -1,6 +1,6 @@
 # module mesonbse
 using ProgressMeter
-using ProgressBars
+# using ProgressBars
 using TOML
 using LinearAlgebra
 using Dierckx
