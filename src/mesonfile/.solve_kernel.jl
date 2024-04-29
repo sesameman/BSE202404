@@ -3,7 +3,7 @@
 # 计算大矩阵的维度
 big_dim = size(kernel, 1) * dim
 # 初始化大矩阵
-big_matrix = Array{ComplexF64,2}(undef, big_dim, big_dim)
+kernelsolve = Array{ComplexF64,2}(undef, big_dim, big_dim)
 # 填充大矩阵
 for i in 1:size(kernel, 1)
     for j in 1:size(kernel, 2)
@@ -11,13 +11,13 @@ for i in 1:size(kernel, 1)
         row_start = (i-1)*dim + 1
         col_start = (j-1)*dim + 1
         # 将小矩阵赋值到大矩阵的相应位置
-        big_matrix[row_start:row_start+dim-1, col_start:col_start+dim-1] = kernel[i, j]
+        kernelsolve[row_start:row_start+dim-1, col_start:col_start+dim-1] = kernel[i, j]
     end
 end
 
 
 
-kernelsolve = big_matrix
+# kernelsolve = big_matrix
 eigvals, eigvecs = eigs(kernelsolve, nev=2, which=:LM) 
 println("now Pmass = ",sqrt(-P2))
 println("eigs = ",eigvals)

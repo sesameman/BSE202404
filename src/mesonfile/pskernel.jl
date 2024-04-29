@@ -1,8 +1,41 @@
-timetest = time()
+# timetest = time()
 # 计算
 # i & s 代表外动量 k2
 # j & m 代表内动量 q2
 
+#==========================================setup_kernel==========================================#
+if dataset["calcType"]["mesonmode"] == 1
+    kernel = Array{Array{ComplexF64,2},2}(undef, 4, 4)
+    for i in 1:4
+        for j in 1:4
+            kernel[i, j] = fill(Complex(0), dim, dim)
+        end
+    end
+elseif dataset["calcType"]["mesonmode"] == 2
+    kernel = Array{Array{ComplexF64,2},2}(undef, 4, 4)
+    for i in 1:4
+        for j in 1:4
+            kernel[i, j] = fill(Complex(0), dim, dim)
+        end
+    end
+elseif dataset["calcType"]["mesonmode"] == 3
+    kernel = Array{Array{ComplexF64,2},2}(undef, 8, 8)
+    for i in 1:8
+        for j in 1:8
+            kernel[i, j] = fill(Complex(0), dim, dim)
+        end
+    end
+elseif dataset["calcType"]["mesonmode"] == 4
+    kernel = Array{Array{ComplexF64,2},2}(undef, 8, 8)
+    for i in 1:8
+        for j in 1:8
+            kernel[i, j] = fill(Complex(0), dim, dim)
+        end
+    end
+end
+#================================================================================================#
+
+#==========================================calc_kernel==========================================#
 Threads.@threads for i = 1:length(meshk)
     for s = 1:length(meshz)
         for j = 1:length(meshk)
@@ -84,3 +117,26 @@ Threads.@threads for i = 1:length(meshk)
         end
     end
 end
+#===============================================================================================#
+
+#==========================================solve_kernel==========================================#
+big_dim = size(kernel, 1) * dim
+# 初始化大矩阵
+kernelsolve = Array{ComplexF64,2}(undef, big_dim, big_dim)
+# 填充大矩阵
+for i in 1:size(kernel, 1)
+    for j in 1:size(kernel, 2)
+        # 计算当前小矩阵在大矩阵中的起始位置
+        row_start = (i-1)*dim + 1
+        col_start = (j-1)*dim + 1
+        # 将小矩阵赋值到大矩阵的相应位置
+        kernelsolve[row_start:row_start+dim-1, col_start:col_start+dim-1] = kernel[i, j]
+    end
+end
+# kernelsolve = big_matrix
+eigvals, eigvecs = eigs(kernelsolve, nev=2, which=:LM) 
+#=================================================================================================#
+
+
+println("now Pmass = ",sqrt(-P2))
+println("eigs = ",eigvals)

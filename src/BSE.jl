@@ -1,13 +1,10 @@
 # module mesonbse
 using ProgressMeter
-using ProgressBars
 using TOML
 using LinearAlgebra
-using Dierckx
 using JLD2
 using Gaussquad # View in github: https://github.com/kangjiayin/Gaussquad.jl
 using FastGaussQuadrature
-# using ChebyshevFu
 using DataFrames
 using CSV
 using Arpack
@@ -42,8 +39,8 @@ rm = dataset["data"]["rm"]
 Parameters_Xi = dataset["data"]["Parameters_Xi"]
 z2 = dataset["data"]["z2"]
 z4 = dataset["data"]["z4"]
-cutup = 10. ^logofcutoff
-cutdown = 10. ^(-4)
+cutup = 10. ^ logofcutoff
+cutdown = 10. ^ (-4.)
 
 kstep = dataset["mesonBSE"]["kstep"]
 zstep = dataset["mesonBSE"]["zstep"]
