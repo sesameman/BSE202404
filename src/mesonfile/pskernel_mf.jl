@@ -75,7 +75,7 @@ Threads.@threads for i in eachindex(meshk)
                         Bqminus = BB(qminus2)
                         outIndex = computeIndex(i, s1, s2)
                         interIndex = computeIndex(j, m1, m2)
-                        allweight = - z2^2 * weightzq1 * weightzq2 * weightq2 * q2 / (32*pi^4) / (qplus2*Aqplus^2 + Bqplus^2) / (qminus2*Aqminus^2 + Bqminus^2)
+                        allweight = - z2^2 * weightzq1 * weightzq2 * weightq2 * q2 / (32 * pi^4) / (qplus2*Aqplus^2 + Bqplus^2) / (qminus2*Aqminus^2 + Bqminus^2)
                         # allweight = -weightzq*weightq2*q2/(16*pi^3)/((P2/4+q2+safe_sqrt(P2*q2)*zq)*Aqplus^2+Bqplus^2)/((P2/4+q2-safe_sqrt(P2*q2)*zq)*Aqminus^2+Bqminus^2)*z2^2
                         theta, weighttheta = gausslegendremesh(0.0, 2.0 *pi, zintstep, 1)
                         # theta, weighttheta = gausschebyshev(zintstep, 1)

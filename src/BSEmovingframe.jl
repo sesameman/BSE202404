@@ -59,8 +59,8 @@ end
 # meshz,weightz = complex.(gausschebyshev(zstep,2));
 meshk,weightk = gausslegendremesh(cutdown,cutup,kstep,2)
 meshz1,weightz1 = gausschebyshev(z1step,2)
-# meshz2,weightz2 = gausschebyshev(z2step,2)
 meshz2,weightz2 = gausslegendre(z2step)
+# meshz2,weightz2 = gausschebyshev(z2step,2)
 D(t) = 8 * pi^2 * (dd * exp(-t/(ω^2)) / ω^4 + rm * ( (-expm1(-t/(2 * mt)^2))/t )/ log(τ + (1+t/Λ^2)^2))
 D_infrared = D
 # D(t::Float64)=8*pi^2*(rm/log(τ+(1+t/Λ^2)^2))*(1/(t+(ω^4/(t+ω^2))))*(1+dd*ω^2/(t+(ω^4/(t+ω^2)))) # QC-2-04-12

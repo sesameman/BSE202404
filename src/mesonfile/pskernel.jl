@@ -36,10 +36,10 @@ end
 #================================================================================================#
 
 #==========================================calc_kernel==========================================#
-Threads.@threads for i = 1:length(meshk)
-    for s = 1:length(meshz)
-        for j = 1:length(meshk)
-            for m = 1:length(meshz)
+Threads.@threads for i in eachindex(meshk)
+    for s in eachindex(meshz)
+        for j in eachindex(meshk)
+            for m in eachindex(meshz)
                 # k2 = complex(meshk[i])
                 # q2 = complex(meshk[j])
                 # zk = complex(meshz[s])
@@ -66,7 +66,7 @@ Threads.@threads for i = 1:length(meshk)
                 Bqminus = BB(qminus2)
                 outIndex = computeIndex(i,s)
                 interIndex = computeIndex(j,m)
-                allweight = - z2^2 * weightzq * weightq2 * q2 / (16*pi^3) / (qplus2*Aqplus^2 + Bqplus^2) / (qminus2*Aqminus^2 + Bqminus^2)
+                allweight = - z2^2 * weightzq * weightq2 * q2 / (16 * pi^3) / (qplus2*Aqplus^2 + Bqplus^2) / (qminus2*Aqminus^2 + Bqminus^2)
                 # allweight = -weightzq*weightq2*q2/(16*pi^3)/((P2/4+q2+safe_sqrt(P2*q2)*zq)*Aqplus^2+Bqplus^2)/((P2/4+q2-safe_sqrt(P2*q2)*zq)*Aqminus^2+Bqminus^2)*z2^2
                 inty, weighty = gausslegendre(zintstep)
                 for numy in eachindex(inty)
