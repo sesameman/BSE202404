@@ -137,30 +137,25 @@ end
 eigvals, eigvecs = eigs(kernelsolve, nev=2, which=:LM) 
 #=================================================================================================#
 
-struct EigenResult
-    p::Float64
-    eigenvalues::Float64
-    eigenfunctions::Vector{ComplexF64}
-end
 
-if indexforp2 == 1
-    eig_results = EigenResult[]
-end
+# if indexforp2 == 1
+#     eig_results = EigenResult[]
+# end
 
-push!(eig_results, EigenResult(P2, eigvals[1], eigvecs[1]))
+# push!(eig_results, EigenResult(P2, eigvals[1], eigvecs[1]))
 
 
-if Pstep != 1
-    if indexforp2 == Pstep
-        global normalize
-        normalize = - (eig_results[1].p - eig_results[end].p)/(eig_results[1].p - eig_results[end].p)
-        for renum in eachindex(eig_results)
-            eig_results[renum].eigenfunctions = eig_results[renum].eigenfunctions .* normalize
-        end
-        savefilepath = joinpath(workdir,"data/pseudo_BSE/meson-$now_time/")
-        @save joinpath(savefilepath,"normalizeed.jld2") eig_results
-    end
-end
+# if Pstep != 1
+#     if indexforp2 == Pstep
+#         global normalize
+#         normalize = - (eig_results[1].p - eig_results[end].p)/(eig_results[1].p - eig_results[end].p)
+#         for renum in eachindex(eig_results)
+#             eig_results[renum].eigenfunctions = eig_results[renum].eigenfunctions .* normalize
+#         end
+#         savefilepath = joinpath(workdir,"data/pseudo_BSE/meson-$now_time/")
+#         @save joinpath(savefilepath,"normalizeed.jld2") eig_results
+#     end
+# end
 
 
 

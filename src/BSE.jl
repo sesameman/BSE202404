@@ -10,7 +10,11 @@ using CSV
 using Arpack
 using Dates
 
-
+struct EigenResult
+    p::Float64
+    eigenvalues::ComplexF64
+    eigenfunctions::Vector{ComplexF64}
+end
 # delete!(dataset,"owner")
 # delete!(dataset,"title")
 delete!(dataset,"readsetting")
