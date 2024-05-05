@@ -10,7 +10,7 @@ using CSV
 using Arpack
 using Dates
 
-struct EigenResult
+mutable struct EigenResult
     p::Float64
     eigenvalues::ComplexF64
     eigenfunctions::Vector{ComplexF64}

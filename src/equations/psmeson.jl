@@ -25,18 +25,19 @@ CSV.write(joinpath(workdir,"data/pseudo_BSE/meson-$now_time/plist.CSV"),DataFram
     end
     # print("mesonBSA--$P2 for $indexforp2/$Pstep done, takes",round((time()-timetest1)*100)/100,"s \n")
     if indexforp2 == 1
+        global eig_results
         eig_results = EigenResult[]
     end
     
-    push!(eig_results, EigenResult(P2, eigvals[1], eigvecs[1]))
+    push!(eig_results, EigenResult(P2, eigvals[1], eigvecs[:,1]))
     
     
     if Pstep != 1
         if indexforp2 == Pstep
-            global normalize
-            normalize = - (eig_results[1].p - eig_results[end].p)/(eig_results[1].p - eig_results[end].p)
+            global normalizenum
+            normalizenum = - real(eig_results[1].eigenvalues - eig_results[end].eigenvalues)/(eig_results[1].p - eig_results[end].p)
             for renum in eachindex(eig_results)
-                eig_results[renum].eigenfunctions = eig_results[renum].eigenfunctions .* normalize
+                eig_results[renum].eigenfunctions = eig_results[renum].eigenfunctions ./ normalizenum
             end
             savefilepath = joinpath(workdir,"data/pseudo_BSE/meson-$now_time/")
             @save joinpath(savefilepath,"normalizeed.jld2") eig_results
