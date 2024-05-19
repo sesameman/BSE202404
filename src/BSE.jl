@@ -1,14 +1,4 @@
 # module mesonbse
-using ProgressMeter
-using TOML
-using LinearAlgebra
-using JLD2
-using Gaussquad # View in github: https://github.com/kangjiayin/Gaussquad.jl
-using FastGaussQuadrature
-using DataFrames
-using CSV
-using Arpack
-using Dates
 
 mutable struct EigenResult
     p::Float64
@@ -69,14 +59,14 @@ D_infrared = D
 # D(t::Float64)=8*pi^2*(rm/log(τ+(1+t/Λ^2)^2))*(1/(t+(ω^4/(t+ω^2))))*(1+dd*ω^2/(t+(ω^4/(t+ω^2)))) # QC-2-04-12
 
 
-function Inport()
-    global z2, z4, AA1, BB1
-    local A, B
-    AA1 = Main.readdse.realA
-    BB1 = Main.readdse.realB
-    mk = Main.readdse.uv
-    return mk
-end
+# function Inport()
+#     global z2, z4, A, BB1
+#     local A, B
+#     AA1 = Main.readdse.realA
+#     BB1 = Main.readdse.realB
+#     mk = Main.readdse.uv
+#     return mk
+# end
 
 maxofk = Inport()
 function AA(x)
